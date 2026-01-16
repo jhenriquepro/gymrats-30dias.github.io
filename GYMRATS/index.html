@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GYM RATS - 30 Dias</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+    <section id="screen-home" class="screen active">
+        <div class="hero">
+            <h1>GYM RATS <br><span>30 DIAS</span></h1>
+            <p>"A dor é temporária, a glória é eterna."</p>
+        </div>
+        
+        <div class="menu-buttons">
+            <button onclick="Navigation.to('screen-insert')" class="btn-primary">
+                <i class="fas fa-dumbbell"></i> Inserir Treino
+            </button>
+            <button onclick="App.startWorkout()" class="btn-sec">
+                <i class="fas fa-play"></i> Iniciar Treino
+            </button>
+        </div>
+
+        <div class="history-section">
+            <h3>Treinos Salvos</h3>
+            <ul id="saved-workouts-list"></ul>
+            <label for="jsonUpload" class="btn-small">Carregar .JSON</label>
+            <input type="file" id="jsonUpload" accept=".json" hidden onchange="Storage.importJSON(this)">
+        </div>
+    </section>
+
+    <section id="screen-insert" class="screen">
+        <header>
+            <button onclick="Navigation.to('screen-home')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h2>Montar Treino</h2>
+        </header>
+
+        <div class="form-group">
+            <input type="text" id="new-exercise-name" placeholder="Nome do exercício (Ex: Supino)">
+            <input type="number" id="new-exercise-sets" placeholder="Séries (Ex: 4)">
+            <button onclick="InsertLogic.addExercise()" class="btn-add">Confirmar</button>
+        </div>
+
+        <ul id="exercises-list-preview" class="list-preview"></ul>
+
+        <button onclick="InsertLogic.saveWorkoutPlan()" class="btn-primary bottom-fix">Salvar Treino</button>
+    </section>
+
+    <section id="screen-active" class="screen">
+        <header class="active-header">
+            <div>
+                <small>Tempo Total</small>
+                <div id="global-timer">00:00:00</div>
+            </div>
+            <button onclick="ActiveLogic.finishWorkout()" class="btn-finish">Finalizar</button>
+        </header>
+
+        <div id="active-workout-container">
+            </div>
+
+        <div id="rest-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Descanso</h3>
+                <div id="rest-timer-display">00:00</div>
+                <div class="rest-options">
+                    <button onclick="RestTimer.start(30)">30s</button>
+                    <button onclick="RestTimer.start(45)">45s</button>
+                    <button onclick="RestTimer.start(60)">1m</button>
+                    <button onclick="RestTimer.start(90)">1m30</button>
+                    <button onclick="RestTimer.start(120)">2m</button>
+                    <button onclick="RestTimer.start(180)">3m</button>
+                </div>
+                <button onclick="RestTimer.stop()" class="btn-close-modal">Pular Descanso</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/storage.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>

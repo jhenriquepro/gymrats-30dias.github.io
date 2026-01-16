@@ -1,0 +1,15 @@
+{
+  "name": "Gym Rats 30 Dias",
+  "short_name": "GymRats",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#BB86FC",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/254/254666.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
